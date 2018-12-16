@@ -30,6 +30,7 @@ LOCATION '/user/DW/DataLake/Dictionary'
 CREATE EXTERNAL TABLE IF NOT EXISTS ODS.TagsXml (storexml string) PARTITIONED BY (ForumName STRING)
 STORED AS TEXTFILE
 LOCATION '/user/DW/DataLake/Tags'
+tblproperties ("skip.header.line.count"="1")
 ;
 ALTER TABLE ods.TagsXml ADD PARTITION (ForumName = 'anime') LOCATION 'anime';
 ALTER TABLE ods.TagsXml ADD PARTITION (ForumName = 'arabic') LOCATION 'arabic';
