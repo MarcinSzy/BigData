@@ -1,0 +1,22 @@
+﻿
+-- tworzenie userów 
+CREATE USER sqoop IDENTIFIED BY 'sqoop'; 
+
+
+--nadawanie uprawnien 
+GRANT ALL PRIVILEGES ON *.* TO sqoop@localhost;
+
+CREATE DATABASE Forum; 
+
+use database Forum; 
+
+create table BADGES
+(
+ Id INT, 
+ UserId INT ,
+ Name varchar(255) ,
+ CreationDate TIMESTAMP , 
+ Class  INT ,
+ TagBased BOOLEAN, 
+ ForumName varchar(255)
+);

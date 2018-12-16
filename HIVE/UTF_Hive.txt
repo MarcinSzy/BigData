@@ -1,0 +1,24 @@
+#tool for shering links 
+https://transfer.sh/
+
+wget -o WordSplit.jar "https://transfer.sh/Vsqf1/HiveUDF-1.0-SNAPSHOT.jar"
+
+
+# tworzenie funkcji tymczasowych
+CREATE TEMPORARY FUNCTION WordSplit AS 'org.hardik.letsdobigdata.Strip';
+										org.hardik.letsdobigdata
+						
+CREATE TEMPORARY FUNCTION WordSplit AS 'it.itfuture.Hive.WordSplit';
+
+##Tworenie funkcji stalych 
+
+#comandLine
+hdfs dfs -mkdir /user/hive/jars
+hdfs dfs -put /home/DW/jars/HiveUDF-1.0-SNAPSHOT.jar  /user/hive/jars
+#Hive 
+ADD JAR hdfs:///user/hive/jars/HiveUDF-1.0-SNAPSHOT.jar;
+CREATE FUNCTION split_tags as 'it.itfuture.Hive.WordSplit' USING JAR 'hdfs:///user/hive/jars/HiveUDF-1.0-SNAPSHOT.jar';
+
+
+
+
