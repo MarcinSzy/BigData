@@ -1,37 +1,38 @@
 
-create database IF NOT EXISTS STG;
+create database IF NOT EXISTS ${hiveconf:DB_NAME};
 
+use ${hiveconf:DB_NAME};
 
-
-
-create table IF NOT EXISTS stg.BADGES
+create table IF NOT EXISTS ${hiveconf:DB_NAME}.BADGES
 (
  Id INT, 
  UserId INT ,
  Name STRING ,
  CreationDate TIMESTAMP , 
  Class  INT ,
- TagBased BOOLEAN 
+ TagBased BOOLEAN, 
+ PPN_EV_ID INT
 )
 COMMENT 'This is the Badges  table'
 PARTITIONED BY(ForumName STRING)
 STORED AS ORC;
 
-create table  IF NOT EXISTS stg.COMMENTS
+create table  IF NOT EXISTS ${hiveconf:DB_NAME}.COMMENTS
 (
  Id INT, 
  PostId INT, 
  Score INT, 
  Text STRING,
  CreationDate TIMESTAMP,
- UserId INT
+ UserId INT,
+ PPN_EV_ID INT
 )
 COMMENT 'This is the Comments  table'
 PARTITIONED BY(ForumName STRING)
-STORED AS Parquet;
+STORED AS ORC;
 
 
-CREATE TABLE  IF NOT EXISTS  stg.POSTS
+CREATE TABLE  IF NOT EXISTS  ${hiveconf:DB_NAME}.POSTS
 (
 ID INT, 
 PostTypeID TINYINT,
@@ -52,13 +53,14 @@ Title STRING,
 Tags STRING,
 AnswerCount INT,
 CommentCount INT, 
-FavoriteCount INT
+FavoriteCount INT,
+PPN_EV_ID INT
 )
 COMMENT 'This is the POSTS  table'
 PARTITIONED BY(ForumName STRING)
 STORED AS ORC;
 
-CREATE TABLE  IF NOT EXISTS stg.POSTHISTORY 
+CREATE TABLE  IF NOT EXISTS ${hiveconf:DB_NAME}.POSTHISTORY 
 (
 Id INT, 
 PostHistoryTypeId TINYINT,
@@ -69,42 +71,45 @@ UserId  INT,
 UserDisplayName STRING,
 CommentText STRING COMMENT 'If PostHistoryTypeId = 10, 11, 12, 13, 14, or 15  this column will contain a JSON encoded string with all users who have voted for the PostHistoryTypeId  If PostHistoryTypeId = 17 this column will contain migration details of either "from <url>" or "to <url>"', 
 Text STRING,
-CloseReasonId TINYINT
+CloseReasonId TINYINT,
+PPN_EV_ID INT 
 )
 COMMENT 'This is the POSTHISTORY  table'
 PARTITIONED BY(ForumName STRING)
-STORED AS parquet;
+STORED AS ORC;
 
 
-create table  IF NOT EXISTS stg.POSTLINKS 
+create table  IF NOT EXISTS ${hiveconf:DB_NAME}.POSTLINKS 
 (
 Id INT, 
 CreationDate TIMESTAMP, 
 PostId INT,
 RelatedPostId INT,
-PostLinkTypeId TINYINT
+PostLinkTypeId TINYINT,
+PPN_EV_ID INT 
 )
 COMMENT 'This is the POSTLINKS  table'
 PARTITIONED BY(ForumName STRING)
-STORED AS SEQUENCEFILE;
+STORED AS ORC;
 
 
 
-create table IF NOT EXISTS stg.TAGS 
+create table IF NOT EXISTS ${hiveconf:DB_NAME}.TAGS 
 (
  Id INT, 
  TagName STRING, 
  COUNT INT, 
  ExcerptPostId INT,
- WikiPostId INT
+ WikiPostId INT,
+ PPN_EV_ID INT 
 )
 COMMENT 'This is the TAGS  table'
 PARTITIONED BY(ForumName STRING)
-STORED AS SEQUENCEFILE;
+STORED AS ORC;
 
 
 
-create table  IF NOT EXISTS stg.USERS
+create table  IF NOT EXISTS ${hiveconf:DB_NAME}.USERS
 (
 ID INT, 
 Reputation INT , 
@@ -118,27 +123,30 @@ Views INT ,
 UpVotes INT,
 DownVotes INT,
 ProfileImageUrl STRING,
-AccountId INT
+AccountId INT,
+PPN_EV_ID INT 
 ) 
 COMMENT 'This is the USERS  table'
 PARTITIONED BY(ForumName STRING)
-STORED AS parquet;
+STORED AS ORC;
 
 
 
 
-create table  IF NOT EXISTS stg.VOTES
+create table  IF NOT EXISTS ${hiveconf:DB_NAME}.VOTES
 (
 Id INT, 
 PostId INT,
 VoteTypeID TINYINT,
 CreationDate TIMESTAMP,
 UserID INT,
-BountyAmount INT 
+BountyAmount INT,
+PPN_EV_ID INT
 ) 
 COMMENT 'This is the VOTES  table'
 PARTITIONED BY(ForumName STRING )
 STORED AS ORC;
+
 
 
 

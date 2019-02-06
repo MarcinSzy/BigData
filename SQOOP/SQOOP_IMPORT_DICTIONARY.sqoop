@@ -1,0 +1,5 @@
+
+
+sqoop import --connect jdbc:mysql://localhost/sqoop --driver com.mysql.jdbc.Driver --username DW  --table Dictionary --hive-import --create-hive-table  --hive-table SYS.Dictionary  -m 1
+
+

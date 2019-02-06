@@ -1,0 +1,4 @@
+databaseName=ODS
+tableName= TAGS BADGES COMMENTS USERS POSTS POSTHISTORY POSTLINKS USERS VOTES
+partitionName=anime arabic
+pathName=/user/DW/DataLake 

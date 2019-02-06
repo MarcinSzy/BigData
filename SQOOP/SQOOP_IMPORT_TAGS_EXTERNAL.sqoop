@@ -1,0 +1,2 @@
+sqoop import --connect jdbc:mysql://localhost/sqoop --driver com.mysql.jdbc.Driver --username DW  --table TAGS --hive-import --hive-overwrite --hive-table SOR.TAGS_EXTERNAL --split-by id --target-dir /user/DW/DataLake/TAGS_EXTERNAL --hive-partition-key forumname --delete-target-dir
+
